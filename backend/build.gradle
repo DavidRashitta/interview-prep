@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.6'
+}
+
+group = 'com.interviewprep'
+version = '0.0.1-SNAPSHOT'
+description = 'Backend for the AI interview-prep tool'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Version management via the Spring Boot and Spring AI BOMs (no extra dependency-management plugin needed).
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:4.0.6')
+    implementation platform('org.springframework.ai:spring-ai-bom:2.0.0')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Spring AI's provider-agnostic ChatClient. Swap this starter (and the spring.ai.* properties)
+    // to move to another LLM provider — the interviewer code does not change.
+    // Using the OpenAI starter pointed at OpenRouter (OpenAI-compatible gateway); model is chosen
+    // via spring.ai.openai.chat.options.model (e.g. anthropic/claude-sonnet-4.5).
+    implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

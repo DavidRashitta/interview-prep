@@ -1,0 +1,29 @@
+# --- Java / Gradle ---
+.gradle/
+**/build/
+*.class
+*.log
+
+# Keep the Gradle wrapper jar (it must be committed)
+!gradle/wrapper/gradle-wrapper.jar
+
+# --- Node / Vite ---
+node_modules/
+dist/
+*.local
+
+# --- Env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- IDE / editors ---
+.idea/
+*.iml
+.vscode/
+*.swp
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
